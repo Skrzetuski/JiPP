@@ -10,13 +10,14 @@ import java.util.List;
 
 
 @Builder
+@Data
 public class Sandwich {
 
     private static final String brandName = "Bobby Sandwich";
 
-    private Bread bread;
+    private final Bread bread;
 
-    private List<Ingredient> ingredients;
+    private final List<Ingredient> ingredients;
 
     private BigDecimal price;
 

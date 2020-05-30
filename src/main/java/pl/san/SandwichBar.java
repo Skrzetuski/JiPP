@@ -1,19 +1,18 @@
 package pl.san;
 
-import pl.san.model.bread.Bread;
+import pl.san.delivery.SandwichBox;
+import pl.san.enums.PAYMENT;
 import pl.san.model.bread.Ciabatta;
-import pl.san.model.bread.Multigrain;
+import pl.san.model.bread.Pita;
 import pl.san.model.ingredient.*;
 import pl.san.sandwich.Sandwich;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import pl.san.sandwich.SandwichMaker;
 
 public class SandwichBar {
 
     public static void main(String[] args) {
 
-        System.out.println(makeSandwich(
+        System.out.println(SandwichMaker.makeSandwich(
                 new Ciabatta(),
                 new Mayonnaise(),
                 new Cheese(),
@@ -23,26 +22,14 @@ public class SandwichBar {
                 new Lettuce(),
                 new Tomato(),
                 new Onion()));
+        System.out.println();
 
-        System.out.println(makeSandwich(
-                new Multigrain(),
-                new Hummus(),
-                new Tomato()));
+        Sandwich sandwich = SandwichMaker.makeSandwich(new Pita(), new Cheese(), new Tomato());
+        System.out.println(sandwich);
 
-    }
-
-    private static Sandwich makeSandwich(Bread bread, Ingredient... ingredients){
-
-        BigDecimal price = BigDecimal.valueOf(0.0);
-        var ingredientsList = new ArrayList<Ingredient>();
-
-        price = price.add(bread.getPrice());
-
-        for (var ingredient : ingredients){
-            price = price.add(ingredient.getPrice());
-            ingredientsList.add(ingredient);
-        }
-
-        return Sandwich.builder().bread(bread).ingredients(ingredientsList).price(price).build();
+        SandwichBox sandwichBox = new SandwichBox(sandwich);
+        sandwichBox.sandwichInfo();
+        sandwichBox.paymentMethod(PAYMENT.CASH);
+        System.out.println("\n"+sandwichBox);
     }
 }
